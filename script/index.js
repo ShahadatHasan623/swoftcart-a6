@@ -113,33 +113,6 @@ const loadCategorie = async (category) => {
     const data = await res.json();
     displayCategory(data);
 }
-
-// Display Products
-const displayCategory = (products) => {
-    const category = document.getElementById('load-category');
-    category.innerHTML = "";
-
-    products.forEach(product => {
-        console.log(product)
-        const cardDiv = document.createElement('div');
-        cardDiv.innerHTML = `
-         <div class="card bg-base-100 w-75 shadow-sm">
-            <figure>
-                <img src="${product.image}" alt="${product.title}" />
-            </figure>
-            <div class="card-body">
-                <h2 class="card-title">${product.title}</h2>
-                <p>${product.description}</p>
-                <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Buy Now</button>
-                </div>
-            </div>
-        </div>
-        `;
-        category.appendChild(cardDiv);
-    })
-}
-
 // {
 //     "id": 17,
 //     "title": "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
@@ -152,6 +125,32 @@ const displayCategory = (products) => {
 //         "count": 679
 //     }
 // }
+// Display Products
+const displayCategory = (products) => {
+    const category = document.getElementById('load-category');
+    category.innerHTML = "";
+
+    products.forEach(product => {
+        console.log(product)
+        const cardDiv = document.createElement('div');
+        cardDiv.innerHTML = `
+         <div class="card bg-base-100 w-75  shadow-sm">
+            <figure class="flex justify-center h-96 bg-gray-300">
+                <img class="p-10" src="${product.image}" alt="${product.title}" />
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">${product.title}</h2>
+                
+                <div class="card-actions justify-end">
+                    <button class="btn btn-primary">Buy Now</button>
+                </div>
+            </div>
+        </div>
+        `;
+        category.appendChild(cardDiv);
+    })
+}
+
 //category Level
 const displayCategoriesLevel = (categories) => {
     const container = document.getElementById("level-container");
