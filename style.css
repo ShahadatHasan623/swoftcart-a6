@@ -18,3 +18,10 @@
     backdrop-filter: inherit;
     width: 100%;
 }
+
+.btn.active {
+    background-color: #1d4ed8;
+    /* blue-700 */
+    color: white;
+    border: none;
+}
