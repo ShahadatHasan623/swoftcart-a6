@@ -158,10 +158,16 @@ const displayCategory = (products) => {
             <h2 class="card-title">
                  ${product.title.length ? product.title.slice(0, 25) : '.....'}
             </h2>
-
-                
-                <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Buy Now</button>
+            <div>
+             <span class="text-xl font-bold"><i class="fa-solid fa-dollar-sign"></i>${product.price}</span>
+            </div>
+                <div class="flex justify-between items-center gap-3">
+                <div>
+                <button class="btn btn-soft"><i class="fa-solid fa-eye"></i>Details</button>
+                </div>
+                 <div class="card-actions ">
+                    <button class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add Cart</button>
+                </div>
                 </div>
             </div>
         </div>
