@@ -179,7 +179,6 @@ const displayDetails = (details) => {
         placeholder="Write your review..."></textarea>
 
     <button 
-s
         class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition duration-300">
         Submit Review
     </button>
@@ -296,11 +295,74 @@ const displayCategoriesLevel = (categories) => {
     activeButton = allButton;
     loadAllProducts();
 }
+// load top poroduct
+const topTrendingProduct = (id) => {
+    console.log(id)
+}
+
+const topProducts = () => {
+    const url = "https://fakestoreapi.com/products"
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            displayTop(data)
+        })
+}
+const displayTop = (products) => {
+    const topTrending = document.getElementById('top-trending');
+    topTrending.innerHTML = "";
 
 
+    const topRated = products.filter(product => product.rating.rate >= 4.7);
+
+    if (topRated.length === 0) {
+        topTrending.innerHTML = `<p class="text-center col-span-full text-gray-500">
+            No top rated products found.
+        </p>`;
+        return;
+    }
+
+    topRated.forEach(product => {
+        const div = document.createElement("div");
+        div.className = "bg-white shadow-lg rounded-lg p-4 w-full max-w-sm";
+
+        div.innerHTML = `
+            <div class="card bg-base-100 w-75 h-full  shadow-sm">
+        <figure class="bg-gray-300 p-10 h-85">
+         <img
+             src="${product.image}"
+             alt="${product.title}" />
+        </figure>
+        <div class="card-body">
+        <div class="flex justify-between">
+             <div class="badge badge-outline badge-primary">${product.category}
+            </div>
+            <div>
+              <i class="fa-solid fa-star text-yellow-500"></i>
+              <span>${product.rating.rate}<span>(${product.rating.count})</span></span>
+            </div>
+            </div>
+        <h2 class="card-title">${product.title.slice(0, 32)}....</h2>
+        <p><i class="fa-solid fa-dollar-sign"></i>${product.price}</p>
+        <div class="flex justify-between items-center gap-3">
+                <div>
+                <button onclick="topTrendingProduct(${product.id})" class="btn btn-soft"><i class="fa-solid fa-eye"></i>Details</button>
+                </div>
+                 <div class="card-actions ">
+                    <button class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add Cart</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        `;
+
+        topTrending.appendChild(div);
+    });
+
+};
 
 
-
+topProducts()
 
 
 
