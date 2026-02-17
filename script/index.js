@@ -65,11 +65,9 @@ document.addEventListener("click", (e) => {
 function initPageScripts(path) {
 
     if (path === "/") {
-        const homeBtn = document.getElementById("homeBtn");
-        if (homeBtn) {
-            homeBtn.addEventListener("click", () => {
-                alert("Home Button Clicked!");
-            });
+        // Call top products AFTER home content is inserted
+        if (document.getElementById('top-trending')) {
+            loadTopProducts();
         }
     }
 
@@ -78,12 +76,6 @@ function initPageScripts(path) {
             initProducts();
         }
         loadCategories()
-    }
-    else if (path === "/") {
-        if (typeof initProducts === "function") {
-            initProducts();
-        }
-        topTrendingProduct()
     }
 }
 
