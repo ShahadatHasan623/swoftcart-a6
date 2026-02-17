@@ -126,12 +126,87 @@ const loadCategorie = async (category) => {
 //     }
 // }
 // Display Products
+
+const detailsProducts = async (id) => {
+    const url = `https://fakestoreapi.com/products/${id}`
+    const res = await fetch(url)
+    const details = await res.json()
+    displayDetails(details)
+
+}
+const displayDetails = (details) => {
+    const detailsContainer = document.getElementById('modal-container')
+    detailsContainer.innerHTML = ""
+    detailsContainer.innerHTML = `
+    <div>
+    <div class="flex gap-5 flex-col ">
+        
+        <div class="bg-gray-300 p-5 rounded-xl flex justify-center">
+            <img class="h-35" src="${details.image}"/>
+        </div>
+        <div class="flex justify-between">
+           <div class="badge badge-primary">${details.category}</div>
+           <div>
+           <i class="fa-solid fa-star fa-x text-yellow-500"></i>
+           <span>${details.rating.rate}(${details.rating.count})</span>
+           </div>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold mb-3">${details.title}</h1>
+          <span class="text-2xl font-bold">
+           Description
+          </span>
+          <p class="text-justify">${details.description}</p>
+          <span class="text-xl font-bold">price :<i class="fa-solid fa-dollar-sign"></i>${details.price}</span>
+         <div class="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6">
+         
+
+    <h2 class="text-xl font-semibold mb-4">Customer Review</h2>
+
+    <!-- Star Rating -->
+    <div class="flex gap-2 mb-4" id="starContainer">
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+    </div>
+
+    <!-- Review Input -->
+    <textarea 
+        id="reviewInput" 
+        class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+        placeholder="Write your review..."></textarea>
+
+    <button 
+s
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition duration-300">
+        Submit Review
+    </button>
+
+</div>
+
+    </div>
+
+        </div>
+    </div>
+    <div class="modal-action">
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn">Close</button>
+                        </form>
+     </div>
+    </div>
+    `
+    document.getElementById("product-modal").showModal()
+
+}
+
 const displayCategory = (products) => {
     const category = document.getElementById('load-category');
     category.innerHTML = "";
 
     products.forEach(product => {
-        console.log(product)
         const cardDiv = document.createElement('div');
         cardDiv.innerHTML = `
          <div class="card bg-base-100 w-75  shadow-sm">
@@ -163,7 +238,7 @@ const displayCategory = (products) => {
             </div>
                 <div class="flex justify-between items-center gap-3">
                 <div>
-                <button class="btn btn-soft"><i class="fa-solid fa-eye"></i>Details</button>
+                <button onclick="detailsProducts(${product.id})" class="btn btn-soft"><i class="fa-solid fa-eye"></i>Details</button>
                 </div>
                  <div class="card-actions ">
                     <button class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add Cart</button>

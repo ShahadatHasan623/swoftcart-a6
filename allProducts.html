@@ -11,10 +11,36 @@
 <body>
     <div class="max-w-7xl mx-auto">
         <h1 class="text-center my-6 md:text-4xl text-2xl font-bold">Our Products</h1>
-        <div id="level-container" class="flex justify-center items-center gap-3">
+        <div id="level-container" class="flex justify-center items-center gap-3 flex-wrap">
         </div>
-        <div class="grid grid-cols-4 gap-5 my-8" id="load-category">
+        <div class="max-w-7xl mx-auto px-2 my-10">
 
+            <div class="grid 
+               grid-cols-1
+               sm:grid-cols-2 
+               md:grid-cols-3 
+               lg:grid-cols-4 
+               gap-6 
+               justify-items-center" id="load-category">
+            </div>
+
+        </div>
+        <!-- open show modal  -->
+        <div>
+            <!-- Open the modal using ID.showModal() method
+            <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+            <dialog id="product-modal" class="modal modal-bottom sm:modal-middle">
+                <div id="modal-container" class="modal-box">
+                    <h3 class="text-lg font-bold">Hello!</h3>
+                    <p class="py-4">Press ESC key or click the button below to close</p>
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </div>
     </div>
     <script src="./script/index.js"></script>
