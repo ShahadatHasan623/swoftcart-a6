@@ -65,7 +65,6 @@ document.addEventListener("click", (e) => {
 function initPageScripts(path) {
 
     if (path === "/") {
-        // Call top products AFTER home content is inserted
         if (document.getElementById('top-trending')) {
             loadTopProducts();
         }
