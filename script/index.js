@@ -79,6 +79,12 @@ function initPageScripts(path) {
         }
         loadCategories()
     }
+    else if (path === "/") {
+        if (typeof initProducts === "function") {
+            initProducts();
+        }
+        topTrendingProduct()
+    }
 }
 
 // Events
@@ -296,73 +302,150 @@ const displayCategoriesLevel = (categories) => {
     loadAllProducts();
 }
 // load top poroduct
-const topTrendingProduct = (id) => {
-    console.log(id)
-}
 
-const topProducts = () => {
-    const url = "https://fakestoreapi.com/products"
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            displayTop(data)
-        })
-}
+document.addEventListener("DOMContentLoaded", () => {
+    loadTopProducts();
+});
+
+// Fetch top products (arrow function)
+const loadTopProducts = async () => {
+    try {
+        const res = await fetch("https://fakestoreapi.com/products");
+        const products = await res.json();
+        displayTop(products);
+    } catch (error) {
+        console.error("Error fetching products:", error);
+    }
+};
+
+// Display top-rated products 
 const displayTop = (products) => {
     const topTrending = document.getElementById('top-trending');
+    if (!topTrending) return; // safety check
+
     topTrending.innerHTML = "";
 
-
-    const topRated = products.filter(product => product.rating.rate >= 4.7);
+    // Filter products with rating >= 4.7
+    const topRated = products.filter(p => p.rating?.rate >= 4.7);
 
     if (topRated.length === 0) {
-        topTrending.innerHTML = `<p class="text-center col-span-full text-gray-500">
-            No top rated products found.
-        </p>`;
+        topTrending.innerHTML = `
+            <p class="text-center col-span-full text-gray-500">
+                No top rated products found.
+            </p>`;
         return;
     }
 
+    // Create product cards
     topRated.forEach(product => {
-        const div = document.createElement("div");
-        div.className = "bg-white shadow-lg rounded-lg p-4 w-full max-w-sm";
+        const card = document.createElement("div");
+        card.className = "bg-white shadow-lg rounded-lg p-4 w-full max-w-sm mx-auto";
 
-        div.innerHTML = `
-            <div class="card bg-base-100 w-75 h-full  shadow-sm">
-        <figure class="bg-gray-300 p-10 h-85">
-         <img
-             src="${product.image}"
-             alt="${product.title}" />
-        </figure>
-        <div class="card-body">
-        <div class="flex justify-between">
-             <div class="badge badge-outline badge-primary">${product.category}
-            </div>
-            <div>
-              <i class="fa-solid fa-star text-yellow-500"></i>
-              <span>${product.rating.rate}<span>(${product.rating.count})</span></span>
-            </div>
-            </div>
-        <h2 class="card-title">${product.title.slice(0, 32)}....</h2>
-        <p><i class="fa-solid fa-dollar-sign"></i>${product.price}</p>
-        <div class="flex justify-between items-center gap-3">
-                <div>
-                <button onclick="topTrendingProduct(${product.id})" class="btn btn-soft"><i class="fa-solid fa-eye"></i>Details</button>
-                </div>
-                 <div class="card-actions ">
-                    <button class="btn btn-primary"><i class="fa-solid fa-cart-arrow-down"></i> Add Cart</button>
-                </div>
+        card.innerHTML = `
+            <div class="card bg-base-100 h-full shadow-sm">
+                <figure class="bg-gray-200 p-6 h-64 flex items-center justify-center">
+                    <img src="${product.image}" alt="${product.title}" class="max-h-full"/>
+                </figure>
+                <div class="card-body">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="badge badge-outline badge-primary px-3 py-1">${product.category}</div>
+                        <div class="flex items-center gap-1">
+                            <i class="fa-solid fa-star text-yellow-500"></i>
+                            <span>${product.rating.rate} (${product.rating.count})</span>
+                        </div>
+                    </div>
+                    <h2 class="card-title text-lg font-semibold">${product.title.slice(0, 32)}...</h2>
+                    <p class="text-xl font-bold mt-2"><i class="fa-solid fa-dollar-sign"></i>${product.price}</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <button onclick="topTrendingProduct(${product.id})" class="btn btn-soft px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">
+                            <i class="fa-solid fa-eye"></i> Details
+                        </button>
+                        <button class="btn btn-primary px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">
+                            <i class="fa-solid fa-cart-arrow-down"></i> Add Cart
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
         `;
 
-        topTrending.appendChild(div);
+        topTrending.appendChild(card);
     });
-
 };
 
+const topTrendingProduct = (id) => {
+    const url = `https://fakestoreapi.com/products/${id}`
+    fetch(url)
+        .then(res => res.json())
+        .then((data) => {
+            displayTopTrendingDetails(data)
+        })
+};
 
-topProducts()
+const displayTopTrendingDetails = (details) => {
+    const detailsContainer = document.getElementById('top-container')
+    detailsContainer.innerHTML = ""
+    detailsContainer.innerHTML = `
+    <div>
+    <div class="flex gap-5 flex-col ">
+        
+        <div class="bg-gray-300 p-5 rounded-xl flex justify-center">
+            <img class="h-35" src="${details.image}"/>
+        </div>
+        <div class="flex justify-between">
+           <div class="badge badge-primary">${details.category}</div>
+           <div>
+           <i class="fa-solid fa-star fa-x text-yellow-500"></i>
+           <span>${details.rating.rate}(${details.rating.count})</span>
+           </div>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold mb-3">${details.title}</h1>
+          <span class="text-2xl font-bold">
+           Description
+          </span>
+          <p class="text-justify">${details.description}</p>
+          <span class="text-xl font-bold">price :<i class="fa-solid fa-dollar-sign"></i>${details.price}</span>
+         <div class="max-w-md mx-auto mt-10 bg-white shadow-lg rounded-2xl p-6">
+         
+
+    <h2 class="text-xl font-semibold mb-4">Customer Review</h2>
+
+    <!-- Star Rating -->
+    <div class="flex gap-2 mb-4" id="starContainer">
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+        <span class="star text-2xl cursor-pointer text-gray-400">★</span>
+    </div>
+
+    <!-- Review Input -->
+    <textarea 
+        id="reviewInput" 
+        class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
+        placeholder="Write your review..."></textarea>
+
+    <button 
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition duration-300">
+        Submit Review
+    </button>
+
+</div>
+
+    </div>
+
+        </div>
+    </div>
+    <div class="modal-action">
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn">Close</button>
+                        </form>
+     </div>
+    </div>
+    `
+    document.getElementById("top-modal").showModal()
+}
 
 
 

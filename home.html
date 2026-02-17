@@ -30,9 +30,26 @@
         </section>
         <!-- Top trending card  -->
         <div class="max-w-7xl px-4 mx-auto">
-            <div id="top-trending" class="grid grid-cols-1 md:grid-cols-4 gap-5 my-10">
-
+            <h1 class="text-3xl font-bold mt-10 px-4">Top Trending Product</h1>
+            <div id="top-trending" class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 justify-items-center">
             </div>
+        </div>
+        <!-- open show modal  -->
+        <div>
+            <!-- Open the modal using ID.showModal() method
+            <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+            <dialog id="top-modal" class="modal modal-bottom sm:modal-middle">
+                <div id="top-container" class="modal-box">
+                    <h3 class="text-lg font-bold">Hello!</h3>
+                    <p class="py-4">Press ESC key or click the button below to close</p>
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <!-- if there is a button in form, it will close the modal -->
+                            <button class="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </div>
     </main>
     <script src="./script/index.js"></script>
