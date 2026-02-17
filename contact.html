@@ -8,7 +8,71 @@
 </head>
 
 <body>
-    contact
+    <section class="min-h-screen bg-gray-100 py-12 px-4">
+        <div class="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden grid md:grid-cols-2">
+
+            <!-- Left Side Info -->
+            <div class="bg-blue-600 text-white p-10 flex flex-col justify-center">
+                <h2 class="text-3xl font-bold mb-6">Get in Touch</h2>
+                <p class="mb-6 text-gray-100">
+                    Have questions about our products or orders? We're here to help!
+                    Contact us anytime and we’ll respond as soon as possible.
+                </p>
+
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-location-dot text-xl"></i>
+                        <span>Dhaka, Bangladesh</span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-envelope text-xl"></i>
+                        <span>support@shopzone.com</span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-phone text-xl"></i>
+                        <span>+880 1234-567890</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side Form -->
+            <div class="p-10">
+                <h2 class="text-2xl font-bold mb-6 text-gray-700">Send Message</h2>
+
+                <form id="contactForm" class="space-y-4">
+                    <div>
+                        <label class="block mb-1 text-gray-600">Full Name</label>
+                        <input type="text"
+                            class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            placeholder="Enter your name" required>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 text-gray-600">Email Address</label>
+                        <input type="email"
+                            class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            placeholder="Enter your email" required>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 text-gray-600">Message</label>
+                        <textarea rows="4"
+                            class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            placeholder="Write your message..." required></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition duration-300">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
 </body>
 
 </html>
