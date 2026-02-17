@@ -139,7 +139,26 @@ const displayCategory = (products) => {
                 <img class="p-10" src="${product.image}" alt="${product.title}" />
             </figure>
             <div class="card-body">
-                <h2 class="card-title">${product.title}</h2>
+            <div>
+            <div>
+
+            <div class="flex justify-between">
+             <div class="badge badge-outline badge-primary">${product.category}
+            </div>
+            <div>
+              <i class="fa-solid fa-star text-yellow-500"></i>
+              <span>${product.rating.rate}<span>(${product.rating.count})</span></span>
+            </div>
+            </div>
+           
+            
+
+            </div>
+            </div>
+            <h2 class="card-title">
+                 ${product.title.length ? product.title.slice(0, 25) : '.....'}
+            </h2>
+
                 
                 <div class="card-actions justify-end">
                     <button class="btn btn-primary">Buy Now</button>
