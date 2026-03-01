@@ -317,7 +317,7 @@ const displayTop = (products) => {
     topTrending.innerHTML = "";
 
     // Filter products with rating >= 4.7
-    const topRated = products.filter(p => p.rating?.rate >= 4.7);
+    const topRated = products.filter(p => p.price >= 300);
 
     if (topRated.length === 0) {
         topTrending.innerHTML = `
